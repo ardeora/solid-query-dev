@@ -1,24 +1,18 @@
-import { Accessor, Component, createComputed, createSignal } from 'solid-js'
+/* istanbul ignore file */
 
-export function createHello(): [Accessor<string>, (to: string) => void] {
-  const [hello, setHello] = createSignal('Hello World!')
+// Side Effects
+import './setBatchUpdatesFn'
 
-  return [hello, (to: string) => setHello(`Hello ${to}!`)]
-}
+// Re-export core
+export * from '@tanstack/query-core'
 
-export const Hello: Component<{ to?: string }> = props => {
-  const [hello, setHello] = createHello()
-
-  // This will only log during development, console is removed in production
-  console.log('Hello World!')
-
-  createComputed(() => {
-    if (typeof props.to === 'string') setHello(props.to)
-  })
-
-  return (
-    <>
-      <div>{hello()}</div>
-    </>
-  )
-}
+// Solid Query
+export * from './types'
+export { createQuery } from './createQuery'
+export { QueryClientContext, QueryClientProvider, useQueryClient } from './QueryClientProvider'
+export type { QueryClientProviderProps } from './QueryClientProvider'
+export { useIsFetching } from './useIsFetching'
+export { createInfiniteQuery } from './createInfiniteQuery'
+export { createMutation } from './createMutation'
+export { useIsMutating } from './useIsMutating'
+export { createQueries } from './createQueries'
