@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.2",
   "name": "@adeora/solid-query-dev",
   "description": "TanStack Query Scratchwork (NOT FOR PRODUCTION USE)",
   "license": "MIT",
@@ -17,7 +17,9 @@
     "dist"
   ],
   "private": false,
-  "sideEffects": false,
+  "sideEffects": [
+    "./src/setBatchUpdatesFn.ts"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -53,6 +55,9 @@
   "peerDependencies": {
     "solid-js": "^1.6.0"
   },
+  "dependencies": {
+    "@tanstack/query-core": "5.0.0-alpha.18"
+  },
   "devDependencies": {
     "@tanstack/query-core": "5.0.0-alpha.18",
     "concurrently": "^7.6.0",
@@ -61,6 +66,7 @@
     "jsdom": "^21.1.0",
     "prettier": "2.8.3",
     "solid-js": "^1.6.9",
+    "ts-toolbelt": "^9.6.0",
     "tsup": "^6.5.0",
     "tsup-preset-solid": "^0.1.4",
     "typescript": "^4.9.4",

@@ -2,7 +2,6 @@
 
 import type {
   QueryKey,
-  QueryObserverOptions,
   QueryObserverResult,
   MutateFunction,
   MutationObserverOptions,
@@ -13,6 +12,7 @@ import type {
   WithRequired,
   DefaultError,
 } from '@tanstack/query-core'
+import type { QueryObserverOptions } from './QueryClient'
 
 export type FunctionedParams<T> = () => T
 
@@ -35,13 +35,7 @@ export interface SolidQueryOptions<
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
 > extends WithRequired<
-    CreateBaseQueryOptions<
-      TQueryFnData,
-      TError,
-      TData,
-      TQueryFnData,
-      TQueryKey
-    >,
+    CreateBaseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
     'queryKey'
   > {}
 
@@ -54,15 +48,15 @@ export type CreateQueryOptions<
 
 /* --- Create Query and Create Base Query  Types --- */
 
-export type CreateBaseQueryResult<
-  TData = unknown,
-  TError = DefaultError,
-> = QueryObserverResult<TData, TError>
+export type CreateBaseQueryResult<TData = unknown, TError = DefaultError> = QueryObserverResult<
+  TData,
+  TError
+>
 
-export type CreateQueryResult<
-  TData = unknown,
-  TError = DefaultError,
-> = CreateBaseQueryResult<TData, TError>
+export type CreateQueryResult<TData = unknown, TError = DefaultError> = CreateBaseQueryResult<
+  TData,
+  TError
+>
 
 export type DefinedCreateBaseQueryResult<
   TData = unknown,
@@ -83,14 +77,7 @@ export interface SolidInfiniteQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
 > extends Omit<
-    InfiniteQueryObserverOptions<
-      TQueryFnData,
-      TError,
-      TData,
-      TQueryData,
-      TQueryKey,
-      TPageParam
-    >,
+    InfiniteQueryObserverOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey, TPageParam>,
     'queryKey'
   > {
   queryKey: TQueryKey
@@ -104,14 +91,7 @@ export type CreateInfiniteQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
   TPageParam = unknown,
 > = FunctionedParams<
-  SolidInfiniteQueryOptions<
-    TQueryFnData,
-    TError,
-    TData,
-    TQueryFnData,
-    TQueryKey,
-    TPageParam
-  >
+  SolidInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey, TPageParam>
 >
 
 export type CreateInfiniteQueryResult<
@@ -142,9 +122,7 @@ export type CreateMutateFunction<
   TError = DefaultError,
   TVariables = void,
   TContext = unknown,
-> = (
-  ...args: Parameters<MutateFunction<TData, TError, TVariables, TContext>>
-) => void
+> = (...args: Parameters<MutateFunction<TData, TError, TVariables, TContext>>) => void
 
 export type CreateMutateAsyncFunction<
   TData = unknown,

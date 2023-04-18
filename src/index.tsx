@@ -8,6 +8,8 @@ export * from '@tanstack/query-core'
 
 // Solid Query
 export * from './types'
+export { QueryClient } from './QueryClient'
+export type { QueryObserverOptions, QueryClientConfig } from './QueryClient'
 export { createQuery } from './createQuery'
 export { QueryClientContext, QueryClientProvider, useQueryClient } from './QueryClientProvider'
 export type { QueryClientProviderProps } from './QueryClientProvider'
